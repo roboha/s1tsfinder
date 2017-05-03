@@ -19,7 +19,8 @@ overlap.
 ## Limitations
 
  - Purpose right now is to just address monthly coverage.
- - An exemplary script is also provided to generate a  (run query_iteration.sh).
+ - An exemplary script is also provided to generate a (run query_iteration.sh)
+ template file for input.
  This utilizes a sloppily modified version of olivierhagolle's download script: (https://github.com/olivierhagolle/Sentinel-download). Purpose of modification
  was to generate query.xml's for queries of up to 5000 scenes.
  - If a certain point is covered by, e.g., 30 scenes p.a., the number of
