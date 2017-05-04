@@ -3,14 +3,20 @@
 echo $xmlfile
 
 cat $xmlfile | grep -o 'POLYGON ((.*))' | sed 's/(/[/g' | sed 's/)/]/g' | sed 's/,/],[/g' | sed 's/ /,/g' | sed 's/POLYGON,//g' | sed 's/]]/]]]/g' | sed 's/\[\[/\[\[\[/g' > polygons.txt
-sed -n 's/.*ingestiondate">\(.*\)/\1/p' $xmlfile | cut -f1 -dT > ingestions.txt
+#sed -n 's/.*link href=\(.*\)/\1/p' $xmlfile | cut -f1 -d\/\< > uuids.txt
+sed -n 's/.*link href="\(.*\)/\1/p' $xmlfile | sed 's/"\/>//g' > uuids.txt
+cat uuids.txt
 sed -n 's/.*filename">\(.*\)/\1/p' $xmlfile | cut -f1 -d\< > filenames.txt
 
-NUMBER_POLYGONS=$(wc -l < ingestions.txt)
+NUMBER_POLYGONS=$(wc -l < uuids.txt)
+echo ui
+wc -l < uuids.txt
+echo fn
+wc -l < filenames.txt
 
 for (( i=1; i<=$NUMBER_POLYGONS; i++ ))
 do
-	date=$(sed -n $i'p' ingestions.txt)
+	uuid=$(sed -n $i'p' uuids.txt)
 	fn=$(sed -n $i'p' filenames.txt)
 	poly=$(sed -n $i'p' polygons.txt)
 
@@ -20,8 +26,8 @@ do
 	echo '"coordinates": '$poly >> $outfile
 	echo '},' >> $outfile
 	echo '"properties": {' >> $outfile
-	echo '"date": "'$date'",' >> $outfile
+	echo '"uuid": "'$uuid'",' >> $outfile
 	echo '"filename": "'$fn'"' >> $outfile
 	echo '}},' >> $outfile
 done
-rm ingestions.txt filenames.txt polygons.txt
+rm uuids.txt filenames.txt polygons.txt

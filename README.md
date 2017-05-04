@@ -19,10 +19,8 @@ overlap.
 ## Limitations
 
  - Purpose right now is to just address monthly coverage.
- - An exemplary script is also provided to generate a (run query_iteration.sh)
- template file for input.
- This utilizes a sloppily modified version of olivierhagolle's download script: (https://github.com/olivierhagolle/Sentinel-download). Purpose of modification
- was to generate query.xml's for queries of up to 5000 scenes.
+ - An exemplary script is also provided to generate an  input file from a 
+   dhus xml query (replacenotes.sh).
  - If a certain point is covered by, e.g., 30 scenes p.a., the number of
  potential monthly subsets (with 1 scene per month) is very large. Intersecting
  areas for *all* these subsets are calculated to recommend the scenes of largest
